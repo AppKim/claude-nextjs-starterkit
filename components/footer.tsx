@@ -9,13 +9,13 @@ export function Footer() {
           </p>
         </div>
         <div className="flex gap-4 text-xs text-muted-foreground">
-          <a href="#" className="hover:text-foreground transition-colors">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
             GitHub
           </a>
-          <a href="#" className="hover:text-foreground transition-colors">
+          <a href="/components-showcase" className="hover:text-foreground transition-colors">
             Docs
           </a>
-          <a href="#" className="hover:text-foreground transition-colors">
+          <a href="mailto:support@example.com" className="hover:text-foreground transition-colors">
             Support
           </a>
         </div>

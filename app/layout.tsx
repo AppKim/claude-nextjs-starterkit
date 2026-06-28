@@ -36,7 +36,6 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
           <Header />
           <main className="flex-1">{children}</main>

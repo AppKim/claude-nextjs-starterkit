@@ -56,6 +56,12 @@ npm run lint
 - **페이지 컴포넌트** (`components/`, 루트 레벨): Header, Footer, ThemeProvider 같은 기능별 컴포넌트
 - 컴포넌트는 TypeScript를 사용하고 타입 안정성을 위해 타입이 지정된 props를 수용합니다
 
+**UI 컴포넌트 구현 시 중요 사항:**
+- `forwardRef` 사용 시 ref 타입이 실제 DOM 요소와 일치해야 함 (예: `<h2>` 요소에는 `HTMLHeadingElement`, `<span>`에는 `HTMLSpanElement`)
+- 인라인 요소(텍스트 흐름 내 사용)는 `<span>` 사용 권장 (예: Badge는 `<span>`으로 구현)
+- 블록 요소는 `<div>` 사용
+- 접근성: 필요시 `aria-label`, `role` 속성 추가 (특히 시각적 장식만 있는 요소)
+
 ### 스타일링 접근 방식
 - **TailwindCSS v4**: 빌드 설정이 필요 없는 유틸리티 우선 스타일링
 - **CSS 변수**: 테마 지원 가능한 색상 (다크/라이트 모드)
@@ -67,6 +73,11 @@ npm run lint
 - localStorage 지속성과 함께 다크 모드 지원을 위해 `next-themes` 사용
 - `app/globals.css`에 정의된 CSS 변수는 테마 변경에 따라 조정됩니다
 - 루트 `<html>` 요소의 `suppressHydrationWarning`은 테마 감지로 인한 하이드레이션 불일치를 방지합니다
+
+**테마 토글 구현 시 주의:**
+- `header.tsx`에서 테마 변경 로직 작성 시 반드시 `useTheme()`에서 `resolvedTheme`을 사용
+- `defaultTheme="system"`일 때 `theme` 값은 문자열 `"system"`이 되므로, 토글 조건문에서 예상과 다르게 동작할 수 있음
+- `resolvedTheme`은 시스템 설정을 고려한 실제 값(`"light"` 또는 `"dark"`)을 반환하므로 의존할 수 있음
 
 ### 서버 컴포넌트
 - Next.js App Router는 기본적으로 서버 컴포넌트를 사용합니다
@@ -87,3 +98,27 @@ npm run lint
 - **아이콘**: 일관된 아이콘 디자인을 위해 lucide-react 사용 (400개 이상의 아이콘 사용 가능)
 - **언어**: 프로젝트는 UI 텍스트에 한국어를 사용합니다 (루트 레이아웃에서 lang="ko")
 - **타입 확인**: TypeScript 엄격한 모드 활성화; 항상 컴포넌트 props에 타입 제공
+
+## Playwright MCP를 통한 앱 분석 및 검증
+
+개발 중 앱의 실제 브라우저 동작, 콘솔 오류, 접근성을 검증하려면:
+
+```bash
+# 1. 개발 서버 실행 (필수)
+npm run dev
+
+# 2. Claude Code에서 Playwright MCP 도구 사용:
+# - mcp__playwright__browser_navigate: 페이지 접속
+# - mcp__playwright__browser_snapshot: 접근성 트리 캡처
+# - mcp__playwright__browser_console_messages: 콘솔 오류 확인
+# - mcp__playwright__browser_take_screenshot: 시각적 상태 확인
+# - mcp__playwright__browser_resize: 반응형 테스트 (예: 375x812 모바일)
+# - mcp__playwright__browser_click: 버튼 클릭 테스트
+# - mcp__playwright__browser_evaluate: JavaScript 실행
+```
+
+**검증 체크리스트:**
+- 테마 토글이 양방향으로 정상 작동하는가
+- 모바일 뷰포트에서 모든 요소가 접근 가능한가 (aria-label 포함)
+- 콘솔에 타입 오류나 런타임 에러가 없는가
+- 모든 링크가 유효한 href를 가지는가

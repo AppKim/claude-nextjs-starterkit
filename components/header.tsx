@@ -8,7 +8,7 @@ import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 
 export function Header() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -19,7 +19,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Link href="/" className="mr-6 flex items-center space-x-2" aria-label="Next.js Starter - 홈">
             <span className="hidden font-bold sm:inline-block">
               Next.js Starter
             </span>
@@ -38,15 +38,15 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
               className="rounded-full"
+              aria-label="다크모드 토글"
             >
-              {theme === "light" ? (
+              {resolvedTheme === "light" ? (
                 <Moon className="h-5 w-5" />
               ) : (
                 <Sun className="h-5 w-5" />
               )}
-              <span className="sr-only">다크모드 토글</span>
             </Button>
           )}
         </div>
