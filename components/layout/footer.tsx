@@ -13,14 +13,14 @@ export function Footer() {
               Next.js Starter Kit
             </Link>
             로 구축되었습니다. 소스 코드는{" "}
-            <Link
-              href="#"
+            <a
+              href="https://github.com"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
               GitHub
-            </Link>
+            </a>
             에서 확인할 수 있습니다.
           </p>
         </div>

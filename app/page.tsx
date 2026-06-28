@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -25,13 +26,17 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="text-lg px-8">
-              <Rocket className="mr-2 h-5 w-5" />
-              시작하기
+            <Button asChild size="lg" className="text-lg px-8">
+              <Link href="/components-showcase">
+                <Rocket className="mr-2 h-5 w-5" />
+                시작하기
+              </Link>
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
-              <Code className="mr-2 h-5 w-5" />
-              GitHub 보기
+            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              <a href="https://github.com" target="_blank" rel="noreferrer">
+                <Code className="mr-2 h-5 w-5" />
+                GitHub 보기
+              </a>
             </Button>
           </div>
         </div>
@@ -132,9 +137,11 @@ export default function Home() {
           <p className="max-w-xl mx-auto text-lg text-muted-foreground">
             몇 분 만에 현대적인 웹 애플리케이션 개발을 시작할 수 있습니다.
           </p>
-          <Button size="lg" className="text-lg px-8">
-            <Rocket className="mr-2 h-5 w-5" />
-            시작하기
+          <Button asChild size="lg" className="text-lg px-8">
+            <Link href="/components-showcase">
+              <Rocket className="mr-2 h-5 w-5" />
+              시작하기
+            </Link>
           </Button>
         </div>
       </section>
