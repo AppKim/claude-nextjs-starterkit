@@ -1,0 +1,61 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "Next.js Starter Kit" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: Next.js Starter Kit
+        - navigation [ref=e7]:
+          - link "홈" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "소개" [ref=e9] [cursor=pointer]:
+            - /url: /about
+          - link "문서" [ref=e10] [cursor=pointer]:
+            - /url: /docs
+      - generic [ref=e11]:
+        - generic [ref=e13]: v1.0.0
+        - navigation [ref=e14]:
+          - button "테마 전환" [ref=e15]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: ⚡ Next.js v15 + TailwindCSS v4
+          - heading "빠른 웹 개발을 위한 최신 스타터 킷" [level=1] [ref=e23]
+          - paragraph [ref=e24]: Next.js v15, TypeScript, TailwindCSS v4, shadcn/ui로 구성된 현대적인 웹 개발 스타터 킷입니다. 몇 분 만에 프로젝트를 시작하세요.
+        - generic [ref=e25]:
+          - link "시작하기" [ref=e26] [cursor=pointer]:
+            - /url: /components-showcase
+          - link "GitHub 보기" [ref=e27] [cursor=pointer]:
+            - /url: https://github.com/AppKim/claude-nextjs-starterkit
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - heading "모든 것이 준비되어 있습니다" [level=2] [ref=e30]
+          - paragraph [ref=e31]: 최신 기술 스택으로 구성된 완전한 개발 환경을 제공합니다.
+        - generic [ref=e32]:
+          - generic [ref=e34]
+          - generic [ref=e41]
+          - generic [ref=e52]
+          - generic [ref=e59]
+          - generic [ref=e67]
+          - generic [ref=e77]
+      - generic [ref=e87]:
+        - heading "지금 바로 시작해보세요" [level=2] [ref=e88]
+        - paragraph [ref=e89]: 몇 분 만에 현대적인 웹 애플리케이션 개발을 시작할 수 있습니다.
+        - link "시작하기" [ref=e90] [cursor=pointer]:
+          - /url: /components-showcase
+          - img
+          - text: 시작하기
+  - contentinfo [ref=e91]:
+    - generic [ref=e92]:
+      - paragraph [ref=e94]:
+        - link "Next.js Starter Kit" [ref=e95] [cursor=pointer]:
+          - /url: /
+        - text: 로 구축되었습니다. 소스 코드는
+        - link "GitHub" [ref=e96] [cursor=pointer]:
+          - /url: https://github.com/AppKim/claude-nextjs-starterkit
+        - text: 에서 확인할 수 있습니다.
+      - paragraph [ref=e98]: © 2025 All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e105] [cursor=pointer]:
+    - img [ref=e106]
+  - alert [ref=e99]
