@@ -1,14 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm --version)",
-      "Bash(npx --version)",
-      "WebFetch(domain:ui.shadcn.com)",
-      "Bash(mv ~/.claude/CLAUDE.md ~/.claude/CLAUDE.md.bak)",
-      "Bash(npx create-next-app@latest . --typescript --eslint --tailwind --app --no-src-dir --import-alias \"@/*\" --yes)",
-      "Bash(mv ~/.claude/CLAUDE.md.bak ~/.claude/CLAUDE.md)",
-      "Bash(brew --version)",
-      "Bash(brew install *)"
+      "WebFetch",
+      "WebSearch",
+      "Bash",
+      "mcp__playwright"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "enableAllProjectMcpServers": true
 }

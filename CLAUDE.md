@@ -1,124 +1,83 @@
 # CLAUDE.md
 
-이 파일은 이 저장소의 코드 작업을 할 때 Claude Code(claude.ai/code)에 제공되는 지침입니다.
-
-## 프로젝트 개요
-
-React 19, TypeScript, TailwindCSS v4, shadcn/ui 컴포넌트를 갖춘 최신 Next.js v16 스타터 킷입니다. 타입 안정성, 접근성, 다크모드 지원에 중점을 두고 빠른 개발을 위해 구축되었습니다.
+이 파일은 이 레포지토리에서 Claude Code (claude.ai/code)가 작업할 때 필요한 지침을 제공합니다.
 
 ## 개발 명령어
 
 ```bash
-# 개발 서버 시작 (http://localhost:3000에서 실행)
+# Turbopack을 사용한 개발 서버 실행
 npm run dev
 
-# 프로덕션을 위해 빌드
+# Turbopack을 사용한 프로덕션 빌드  
 npm run build
 
-# 프로덕션 빌드를 로컬에서 실행
-npm start
+# 프로덕션 서버 실행
+npm run start
 
-# 코드 린트
+# 린트 검사
 npm run lint
+
+# TypeScript 타입 체크
+npx tsc --noEmit
+
+# shadcn/ui 컴포넌트 추가
+npx shadcn@latest add [component-name]
 ```
 
-## 프로젝트 구조
+## 아키텍처 개요
 
-```
-├── app/                      # Next.js App Router 페이지 및 레이아웃
-│   ├── layout.tsx           # ThemeProvider, Header, Footer가 포함된 루트 레이아웃
-│   ├── page.tsx             # 기능 쇼케이스가 있는 홈 페이지
-│   └── components-showcase/ # 컴포넌트 데모 페이지
-├── components/              # React 컴포넌트
-│   ├── ui/                  # shadcn/ui 컴포넌트 (Button, Card, Badge, Separator 등)
-│   ├── header.tsx           # 헤더 컴포넌트
-│   ├── footer.tsx           # 푸터 컴포넌트
-│   └── theme-provider.tsx   # next-themes 통합
-├── lib/                     # 유틸리티 함수
-│   └── utils.ts            # Tailwind 클래스 병합을 위한 cn() 헬퍼
-├── public/                  # 정적 자산
-├── app/globals.css         # 글로벌 스타일, Tailwind 지시문, CSS 변수
-├── components.json         # shadcn/ui 설정
-├── tsconfig.json          # @ 경로 별칭이 있는 TypeScript 설정
-├── eslint.config.mjs      # ESLint 설정 (플랫 설정)
-├── next.config.ts         # Next.js 설정
-└── package.json           # 의존성 및 스크립트
-```
+이 프로젝트는 한국어를 지원하는 **Next.js v15 스타터 킷**으로, App Router 아키텍처를 사용하여 구축되었습니다. 주요 특징:
 
-## 주요 아키텍처 패턴
+### TailwindCSS v4 설정
+- **tailwind.config 파일 없음** - CSS 기반 설정 사용
+- `app/globals.css`에 `@theme inline` 블록으로 스타일 정의
+- 커스텀 다크 모드 variant: `@custom-variant dark (&:is(.dark *))`
+- PostCSS는 `@tailwindcss/postcss` 플러그인만 사용하도록 설정
+- 추가 애니메이션을 위한 `tw-animate-css` 사용
+- 라이트/다크 테마 모두에 OKLCH 값을 사용하는 색상 시스템
 
-### TypeScript 경로 별칭
-- `@/*`는 프로젝트 루트로 확인 (tsconfig.json에서 설정)
-- 프로젝트 전체에서 깔끔한 임포트를 위해 `@/components`, `@/lib`, `@/ui` 사용
-
-### 컴포넌트 구조
-- **UI 컴포넌트** (`components/ui/`): Radix UI에서 제공하는 재사용 가능하고 조합 가능한 shadcn/ui 컴포넌트
-- **페이지 컴포넌트** (`components/`, 루트 레벨): Header, Footer, ThemeProvider 같은 기능별 컴포넌트
-- 컴포넌트는 TypeScript를 사용하고 타입 안정성을 위해 타입이 지정된 props를 수용합니다
-
-**UI 컴포넌트 구현 시 중요 사항:**
-- `forwardRef` 사용 시 ref 타입이 실제 DOM 요소와 일치해야 함 (예: `<h2>` 요소에는 `HTMLHeadingElement`, `<span>`에는 `HTMLSpanElement`)
-- 인라인 요소(텍스트 흐름 내 사용)는 `<span>` 사용 권장 (예: Badge는 `<span>`으로 구현)
-- 블록 요소는 `<div>` 사용
-- 접근성: 필요시 `aria-label`, `role` 속성 추가 (특히 시각적 장식만 있는 요소)
-
-### 스타일링 접근 방식
-- **TailwindCSS v4**: 빌드 설정이 필요 없는 유틸리티 우선 스타일링
-- **CSS 변수**: 테마 지원 가능한 색상 (다크/라이트 모드)
-- **cn() 헬퍼** (`lib/utils.ts`): clsx + tailwind-merge를 사용하여 Tailwind 클래스를 안전하게 병합
-- **다크 모드**: next-themes로 관리, 시스템 설정을 존중하고 사용자 선택을 유지
+### 컴포넌트 아키텍처
+- **shadcn/ui 컴포넌트**: `components/ui/`에 위치 (New York 스타일, RSC 활성화, Lucide 아이콘)
+- **레이아웃 컴포넌트**: `components/layout/`에 위치 (navbar, footer, theme-toggle)
+- **프로바이더**: `components/providers/`에 위치 (테마 프로바이더 래퍼)
+- **유틸리티 함수**: `lib/utils.ts`에 위치 (클래스 병합을 위한 cn 함수)
+- **컴포넌트 설정**: 커스텀 별칭이 포함된 `components.json`을 통해 관리
 
 ### 테마 시스템
-- `ThemeProvider`는 `app/layout.tsx`의 전체 앱을 래핑합니다
-- localStorage 지속성과 함께 다크 모드 지원을 위해 `next-themes` 사용
-- `app/globals.css`에 정의된 CSS 변수는 테마 변경에 따라 조정됩니다
-- 루트 `<html>` 요소의 `suppressHydrationWarning`은 테마 감지로 인한 하이드레이션 불일치를 방지합니다
+- 시스템 감지가 활성화된 `next-themes` 사용
+- `attribute="class"` 및 `defaultTheme="system"`으로 설정된 ThemeProvider
+- 한국어 라벨(라이트, 다크, 시스템)로 라이트/다크/시스템 옵션을 제공하는 테마 토글 컴포넌트
+- 테마 지속성을 위해 루트 레이아웃에 `suppressHydrationWarning` 포함
 
-**테마 토글 구현 시 주의:**
-- `header.tsx`에서 테마 변경 로직 작성 시 반드시 `useTheme()`에서 `resolvedTheme`을 사용
-- `defaultTheme="system"`일 때 `theme` 값은 문자열 `"system"`이 되므로, 토글 조건문에서 예상과 다르게 동작할 수 있음
-- `resolvedTheme`은 시스템 설정을 고려한 실제 값(`"light"` 또는 `"dark"`)을 반환하므로 의존할 수 있음
+### 레이아웃 구조
+- 루트 레이아웃(`app/layout.tsx`)이 모든 페이지를 ThemeProvider로 감쌈
+- 고정된 navbar와 footer, 메인 콘텐츠는 flex-1 컨테이너에 배치
+- HTML에 한국어 설정(`lang="ko"`)
+- CSS 변수를 사용하는 Geist 폰트(sans 및 mono)
 
-### 서버 컴포넌트
-- Next.js App Router는 기본적으로 서버 컴포넌트를 사용합니다
-- 클라이언트 상호작용이 필요한 경우에만 (이벤트, 훅, 브라우저 API) `"use client"` 지시문을 사용합니다
-- 루트 레이아웃 및 페이지 파일은 기본적으로 서버 컴포넌트입니다
+### 스타일링 패턴
+- 일관된 중앙 정렬을 위해 모든 컨테이너에 `mx-auto max-w-screen-2xl px-4` 사용
+- OKLCH 색상 값으로 라이트/다크 모드 간 더 나은 지각적 균일성 제공
+- `cn()` 유틸리티로 클래스 조합하는 shadcn/ui 패턴을 따르는 컴포넌트
+- Border radius 시스템: 기본값 `10px`로 `--radius-sm`부터 `--radius-xl`까지
 
-## Next.js v15+ 중요 사항
+## 환경 설정
 
-**이 프로젝트는 이전 버전의 주요 변경 사항이 있는 Next.js 16.x를 사용합니다.** 코드를 작성하기 전에:
-1. `node_modules/next/dist/docs/`의 공식 Next.js 문서 확인
-2. 콘솔 출력의 사용 중단 공지 주의
-3. 주요 변경 사항: App Router가 표준, Pages Router 제거, 메타데이터 API, 비동기 서버 컴포넌트, 스트리밍, 내장 최적화
+환경변수를 위해 `.env.example`을 `.env.local`로 복사하세요. 스타터 킷에는 일반적인 서비스(데이터베이스, 인증, API)에 대한 샘플 설정이 포함되어 있습니다.
 
-## 개발 팁
+## Import 별칭
 
-- **컴포넌트 쇼케이스**: `/components-showcase` 경로에서 사용 가능한 모든 UI 컴포넌트 보기
-- **Tailwind 클래스**: 표준 Tailwind 유틸리티 사용; `cn()` 유틸리티는 클래스 충돌을 방지합니다
-- **아이콘**: 일관된 아이콘 디자인을 위해 lucide-react 사용 (400개 이상의 아이콘 사용 가능)
-- **언어**: 프로젝트는 UI 텍스트에 한국어를 사용합니다 (루트 레이아웃에서 lang="ko")
-- **타입 확인**: TypeScript 엄격한 모드 활성화; 항상 컴포넌트 props에 타입 제공
+- `@/components` → `./components`
+- `@/lib` → `./lib`  
+- `@/app` → `./app`
+- `@/ui` → `./components/ui`
+- `@/hooks` → `./hooks`
+- `@/` → `./` (루트)
 
-## Playwright MCP를 통한 앱 분석 및 검증
+## 한국어 지원
 
-개발 중 앱의 실제 브라우저 동작, 콘솔 오류, 접근성을 검증하려면:
-
-```bash
-# 1. 개발 서버 실행 (필수)
-npm run dev
-
-# 2. Claude Code에서 Playwright MCP 도구 사용:
-# - mcp__playwright__browser_navigate: 페이지 접속
-# - mcp__playwright__browser_snapshot: 접근성 트리 캡처
-# - mcp__playwright__browser_console_messages: 콘솔 오류 확인
-# - mcp__playwright__browser_take_screenshot: 시각적 상태 확인
-# - mcp__playwright__browser_resize: 반응형 테스트 (예: 375x812 모바일)
-# - mcp__playwright__browser_click: 버튼 클릭 테스트
-# - mcp__playwright__browser_evaluate: JavaScript 실행
-```
-
-**검증 체크리스트:**
-- 테마 토글이 양방향으로 정상 작동하는가
-- 모바일 뷰포트에서 모든 요소가 접근 가능한가 (aria-label 포함)
-- 콘솔에 타입 오류나 런타임 에러가 없는가
-- 모든 링크가 유효한 href를 가지는가
+이 프로젝트는 한국어를 위해 설정되었습니다:
+- HTML lang 속성을 "ko"로 설정
+- 한국어 라벨(라이트, 다크, 시스템)이 포함된 테마 토글
+- 한국어 설명이 포함된 환경변수
+- 한국어로 작성된 README 및 문서

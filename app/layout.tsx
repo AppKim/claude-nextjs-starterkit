@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js v15 Starter Kit",
-  description: "모던 기술스택으로 빠르게 시작하는 웹개발",
+  title: "Next.js Starter Kit",
+  description: "Next.js v15, TypeScript, TailwindCSS v4, shadcn/ui로 구성된 스타터 킷입니다.",
 };
 
 export default function RootLayout({
@@ -26,18 +26,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+    <html lang="ko" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
+          disableTransitionOnChange
         >
-          <Header />
+          <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
