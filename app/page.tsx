@@ -33,7 +33,7 @@ export default function Home() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <a href="https://github.com" target="_blank" rel="noreferrer">
+              <a href="https://github.com/AppKim/claude-nextjs-starterkit" target="_blank" rel="noreferrer">
                 <Code className="mr-2 h-5 w-5" />
                 GitHub 보기
               </a>

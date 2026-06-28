@@ -14,7 +14,7 @@ export function Footer() {
             </Link>
             로 구축되었습니다. 소스 코드는{" "}
             <a
-              href="https://github.com"
+              href="https://github.com/AppKim/claude-nextjs-starterkit"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
